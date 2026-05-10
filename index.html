@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>100일 이벤트 ❤️</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  min-height:100vh;
+  overflow:hidden;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    sans-serif;
+
+  background:
+    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+    url("01.jpg");
+
+  background-size:cover;
+  background-position:center;
+
+  position:relative;
+}
+
+/* 반짝이 배경 */
+.sparkle{
+  position:fixed;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+  0%,100%{
+    transform:scale(.5);
+    opacity:.3;
+  }
+  50%{
+    transform:scale(1.8);
+    opacity:1;
+  }
+}
+
+/* 카드 */
+.card{
+  width:100%;
+  max-width:430px;
+
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+
+  border-radius:28px;
+  padding:36px 28px;
+
+  text-align:center;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25),
+    0 0 30px rgba(255,105,180,.25);
+
+  position:relative;
+  z-index:10;
+
+  animation: floatCard 3s ease-in-out infinite;
+}
+
+@keyframes floatCard{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-6px);
+  }
+}
+
+/* 상단 하트 */
+.top-heart{
+  font-size:34px;
+  animation: heartbeat 1.2s infinite;
+  margin-bottom:12px;
+}
+
+@keyframes heartbeat{
+  0%,100%{
+    transform:scale(1);
+  }
+  25%{
+    transform:scale(1.15);
+  }
+  40%{
+    transform:scale(.95);
+  }
+  60%{
+    transform:scale(1.12);
+  }
+}
+
+/* 제목 */
+.title{
+  font-size:28px;
+  font-weight:800;
+  color:#ff4d88;
+  margin-bottom:16px;
+}
+
+/* 본문 */
+.message{
+  font-size:20px;
+  line-height:1.8;
+  color:#222;
+  margin-bottom:32px;
+}
+
+.highlight{
+  color:#ff4d88;
+  font-weight:800;
+}
+
+/* 버튼 영역 */
+.btn-container{
+  position:relative;
+  width:280px;
+  height:60px;
+  margin:0 auto;
+}
+
+.btn{
+  position:absolute;
+  top:0;
+
+  width:120px;
+  height:52px;
+
+  border:none;
+  border-radius:999px;
+
+  font-size:18px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:
+    transform .15s ease,
+    box-shadow .25s ease;
+}
+
+.btn:active{
+  transform:scale(.96);
+}
+
+.yes{
+  left:0;
+  background:linear-gradient(135deg,#ff4d88,#ff6fa5);
+  color:white;
+
+  box-shadow:
+    0 8px 20px rgba(255,77,136,.4);
+}
+
+.yes:hover{
+  transform:translateY(-2px);
+}
+
+.no{
+  left:160px;
+  background:#efefef;
+  color:#333;
+}
+
+/* 결과 */
+.result{
+  margin-top:30px;
+  display:none;
+  animation: fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.result h2{
+  color:#ff4d88;
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.result p{
+  color:#444;
+  font-size:18px;
+  line-height:1.7;
+}
+
+/* 떠다니는 하트 */
+.heart{
+  position:fixed;
+  pointer-events:none;
+  animation: float 4s linear forwards;
+  z-index:999;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0) scale(.8);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-700px) scale(1.8);
+    opacity:0;
+  }
+}
+
+/* 컨페티 */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-20px;
+  animation: confettiFall 4s linear forwards;
+  z-index:999;
+}
+
+@keyframes confettiFall{
+  0%{
+    transform:translateY(0) rotate(0deg);
+  }
+  100%{
+    transform:translateY(110vh) rotate(720deg);
+  }
+}
+
+/* 하단 문구 */
+.footer{
+  margin-top:24px;
+  font-size:14px;
+  color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 반짝이 -->
+<script>
+for(let i=0;i<40;i++){
+  const s=document.createElement("div");
+  s.className="sparkle";
+
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+
+  s.style.animationDelay=Math.random()*2+"s";
+  s.style.opacity=Math.random();
+
+  document.body.appendChild(s);
+}
+</script>
+
+<div class="card">
+
+  <div class="top-heart">💖</div>
+
+  <div class="title">100일 이벤트</div>
+
+  <div class="message">
+    벌써 우리가 함께한 지<br>
+    <span class="highlight">100일</span>이 되었네 ☺️<br><br>
+
+    앞으로도 지금처럼<br>
+    오래오래 함께해줄래?
+  </div>
+
+  <div class="btn-container">
+
+    <button class="btn yes" id="yesBtn">
+      당연하지 ❤️
+    </button>
+
+    <button class="btn no" id="noBtn">
+      아니
+    </button>
+
+  </div>
+
+  <div class="result" id="result">
+
+    <h2>❤️ 100일 축하해 ❤️</h2>
+
+    <p>
+      너랑 함께한 지난 100일은<br>
+      정말 행복했어 ☺️<br><br>
+
+      앞으로의 200일,<br>
+      300일도 같이 만들어가자 💕
+    </p>
+
+  </div>
+
+  <div class="footer">
+    Made with love 💌
+  </div>
+
+</div>
+
+<script>
+
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const result=document.getElementById("result");
+
+/* YES 버튼 */
+yesBtn.addEventListener("click",()=>{
+
+  document.body.style.background=
+    `
+    linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)),
+    url("02.jpg")
+    `;
+
+  document.body.style.backgroundSize="cover";
+  document.body.style.backgroundPosition="center";
+
+  result.style.display="block";
+
+  createHearts();
+  createConfetti();
+
+  yesBtn.innerHTML="❤️ 사랑해 ❤️";
+
+});
+
+/* 하트 생성 */
+function createHearts(){
+
+  for(let i=0;i<40;i++){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+    heart.innerHTML=["💖","💕","💗","💘","❤️"][Math.floor(Math.random()*5)];
+
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.top="100vh";
+
+    heart.style.fontSize=
+      (20+Math.random()*30)+"px";
+
+    heart.style.animationDuration=
+      (3+Math.random()*2)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+      heart.remove();
+    },5000);
+  }
+}
+
+/* 컨페티 */
+function createConfetti(){
+
+  const colors=[
+    "#ff4d88",
+    "#ffd166",
+    "#7bdff2",
+    "#b2f7ef",
+    "#ff99c8"
+  ];
+
+  for(let i=0;i<120;i++){
+
+    const conf=document.createElement("div");
+
+    conf.className="confetti";
+
+    conf.style.left=Math.random()*100+"vw";
+
+    conf.style.background=
+      colors[Math.floor(Math.random()*colors.length)];
+
+    conf.style.width=
+      (6+Math.random()*8)+"px";
+
+    conf.style.height=
+      (6+Math.random()*12)+"px";
+
+    conf.style.animationDuration=
+      (2+Math.random()*3)+"s";
+
+    document.body.appendChild(conf);
+
+    setTimeout(()=>{
+      conf.remove();
+    },5000);
+  }
+}
+
+/* NO 버튼 도망 */
+function moveNo(){
+
+  const container=
+    document.querySelector(".btn-container");
+
+  const maxX=
+    container.clientWidth-noBtn.offsetWidth;
+
+  const maxY=
+    container.clientHeight-noBtn.offsetHeight;
+
+  const x=Math.random()*maxX;
+  const y=Math.random()*maxY;
+
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+}
+
+noBtn.addEventListener("mouseenter",moveNo);
+
+noBtn.addEventListener("touchstart",(e)=>{
+  e.preventDefault();
+  moveNo();
+},{passive:false});
+
+noBtn.addEventListener("click",(e)=>{
+  e.preventDefault();
+  moveNo();
+});
+
+</script>
+
+</body>
+</html>
